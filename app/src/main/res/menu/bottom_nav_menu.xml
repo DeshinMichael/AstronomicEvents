@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/daily"
+        android:title="@string/today"
+        android:icon="@drawable/today"/>
+    <item android:id="@+id/date"
+        android:title="@string/date"
+        android:icon="@drawable/date"/>
+    <item android:id="@+id/favorite"
+        android:title="@string/favorite"
+        android:icon="@drawable/favorite"/>
+</menu>
