@@ -1,4 +1,4 @@
-package com.example.nasaimagesbook;
+package com.example.nasaimagesbook.features;
 
 import androidx.fragment.app.Fragment;
 

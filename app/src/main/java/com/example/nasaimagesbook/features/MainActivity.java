@@ -1,14 +1,17 @@
-package com.example.nasaimagesbook;
+package com.example.nasaimagesbook.features;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.nasaimagesbook.R;
 import com.example.nasaimagesbook.databinding.ActivityMainBinding;
+import com.example.nasaimagesbook.features.DailyEventFragment;
+import com.example.nasaimagesbook.features.EventByDateFragment;
+import com.example.nasaimagesbook.features.FavEventFragment;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
