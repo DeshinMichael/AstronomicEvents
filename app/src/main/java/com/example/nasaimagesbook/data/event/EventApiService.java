@@ -1,4 +1,7 @@
-package com.example.nasaimagesbook.data;
+package com.example.nasaimagesbook.data.event;
+
+import com.example.nasaimagesbook.data.event.EventApi;
+import com.example.nasaimagesbook.data.retrofit_services.RetrofitEventService;
 
 public class EventApiService {
 

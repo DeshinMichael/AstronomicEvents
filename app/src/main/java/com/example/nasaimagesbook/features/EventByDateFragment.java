@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.nasaimagesbook.data.EventResponse;
+import com.example.nasaimagesbook.data.event.EventResponse;
 import com.example.nasaimagesbook.data.Repository;
 import com.example.nasaimagesbook.databinding.FragmentEventByDateBinding;
 import com.squareup.picasso.Picasso;
@@ -24,6 +24,7 @@ import retrofit2.Response;
 
 public class EventByDateFragment extends Fragment {
 
+    private static String OUTSTATE_KEY = "daily_event";
     private FragmentEventByDateBinding binding;
     private Calendar c;
     private DatePickerDialog dpd;
@@ -33,6 +34,12 @@ public class EventByDateFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentEventByDateBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        if (savedInstanceState != null) {
+            String title = "";
+            title = savedInstanceState.getString(EventByDateFragment.OUTSTATE_KEY);
+            binding.titleEventByDate.setText(title);
+        }
 
         c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
@@ -63,9 +70,9 @@ public class EventByDateFragment extends Fragment {
                                     binding.titleEventByDate.setText(eventResponse.getTitle());
                                     binding.descEventByDate.setText(eventResponse.getExplanation());
 
-                                    binding.imageEventByDate.setVisibility(View.VISIBLE);
-                                    binding.titleEventByDate.setVisibility(View.VISIBLE);
-                                    binding.descEventByDate.setVisibility(View.VISIBLE);
+//                                    binding.imageEventByDate.setVisibility(View.VISIBLE);
+//                                    binding.titleEventByDate.setVisibility(View.VISIBLE);
+//                                    binding.descEventByDate.setVisibility(View.VISIBLE);
                                     binding.dateEventProgressBar.setVisibility(View.INVISIBLE);
                                 }
                             }
@@ -75,12 +82,24 @@ public class EventByDateFragment extends Fragment {
                         });
 
                     }
-                }, day, month, year);
+                }, year, month, day);
                 dpd.show();
             }
         });
 
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(OUTSTATE_KEY, binding.titleEventByDate.getText().toString());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

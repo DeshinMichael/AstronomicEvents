@@ -1,4 +1,4 @@
-package com.example.nasaimagesbook.data;
+package com.example.nasaimagesbook.data.event;
 
 public class EventResponse {
     private String title;

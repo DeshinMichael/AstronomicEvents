@@ -1,7 +1,6 @@
 package com.example.nasaimagesbook.features;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.nasaimagesbook.data.EventResponse;
+import com.example.nasaimagesbook.data.event.EventResponse;
 import com.example.nasaimagesbook.data.Repository;
 import com.example.nasaimagesbook.databinding.FragmentDailyEventBinding;
-import com.example.nasaimagesbook.databinding.FragmentEventByDateBinding;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -55,5 +53,11 @@ public class DailyEventFragment extends Fragment {
         });
 
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }
