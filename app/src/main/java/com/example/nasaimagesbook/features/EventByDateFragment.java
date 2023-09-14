@@ -75,7 +75,7 @@ public class EventByDateFragment extends Fragment {
                         });
 
                     }
-                }, day, month, year);
+                }, year, month, day);
                 dpd.show();
             }
         });
