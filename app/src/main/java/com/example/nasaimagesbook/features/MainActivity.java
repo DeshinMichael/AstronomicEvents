@@ -11,14 +11,14 @@ import com.example.nasaimagesbook.R;
 import com.example.nasaimagesbook.databinding.ActivityMainBinding;
 import com.example.nasaimagesbook.features.DailyEventFragment;
 import com.example.nasaimagesbook.features.EventByDateFragment;
-import com.example.nasaimagesbook.features.FavEventFragment;
+import com.example.nasaimagesbook.features.FavEventsFragment;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
     DailyEventFragment dailyEventFragment = new DailyEventFragment();
     EventByDateFragment eventByDateFragment = new EventByDateFragment();
-    FavEventFragment favEventFragment = new FavEventFragment();
+    FavEventsFragment favEventFragment = new FavEventsFragment();
     private ActivityMainBinding binding;
 
     @Override

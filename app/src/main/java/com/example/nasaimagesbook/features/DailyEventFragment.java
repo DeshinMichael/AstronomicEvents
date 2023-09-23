@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.nasaimagesbook.data.DbHelper;
 import com.example.nasaimagesbook.data.EventResponse;
 import com.example.nasaimagesbook.data.Repository;
 import com.example.nasaimagesbook.databinding.FragmentDailyEventBinding;
@@ -23,13 +24,19 @@ import retrofit2.Response;
 public class DailyEventFragment extends Fragment {
 
     private FragmentDailyEventBinding binding;
+    private DbHelper dbHelper;
+
+    private String image;
+    private String name;
+    private String desc;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDailyEventBinding.inflate(inflater, container, false);
-        View v = binding.getRoot();
+        View view = binding.getRoot();
 
+        binding.btnAddToFav.setVisibility(View.GONE);
         binding.dailyProgressBar.setVisibility(View.VISIBLE);
 
         Call<EventResponse> eventResponseCall = Repository.getEvent();
@@ -46,7 +53,12 @@ public class DailyEventFragment extends Fragment {
                     binding.imageEvent.setVisibility(View.VISIBLE);
                     binding.titleEvent.setVisibility(View.VISIBLE);
                     binding.descEvent.setVisibility(View.VISIBLE);
+                    binding.btnAddToFav.setVisibility(View.VISIBLE);
                     binding.dailyProgressBar.setVisibility(View.INVISIBLE);
+
+                    image = eventResponse.getUrl();
+                    name = eventResponse.getTitle();
+                    desc = eventResponse.getExplanation();
                 }
             }
 
@@ -54,6 +66,14 @@ public class DailyEventFragment extends Fragment {
             public void onFailure(Call<EventResponse> call, Throwable t) {}
         });
 
-        return v;
+        binding.btnAddToFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHelper = new DbHelper(view.getContext());
+                dbHelper.addFavEvent(image, name, desc);
+            }
+        });
+
+        return view;
     }
 }

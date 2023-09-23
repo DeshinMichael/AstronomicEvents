@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.nasaimagesbook.data.DbHelper;
 import com.example.nasaimagesbook.data.EventResponse;
 import com.example.nasaimagesbook.data.Repository;
 import com.example.nasaimagesbook.databinding.FragmentEventByDateBinding;
@@ -27,12 +28,19 @@ public class EventByDateFragment extends Fragment {
     private FragmentEventByDateBinding binding;
     private Calendar c;
     private DatePickerDialog dpd;
+    private DbHelper dbHelper;
+
+    private String image;
+    private String name;
+    private String desc;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentEventByDateBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        binding.btnAddToFav.setVisibility(View.GONE);
 
         c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
@@ -66,7 +74,12 @@ public class EventByDateFragment extends Fragment {
                                     binding.imageEventByDate.setVisibility(View.VISIBLE);
                                     binding.titleEventByDate.setVisibility(View.VISIBLE);
                                     binding.descEventByDate.setVisibility(View.VISIBLE);
+                                    binding.btnAddToFav.setVisibility(View.VISIBLE);
                                     binding.dateEventProgressBar.setVisibility(View.INVISIBLE);
+
+                                    image = eventResponse.getUrl();
+                                    name = eventResponse.getTitle();
+                                    desc = eventResponse.getExplanation();
                                 }
                             }
 
@@ -80,6 +93,13 @@ public class EventByDateFragment extends Fragment {
             }
         });
 
+        binding.btnAddToFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHelper = new DbHelper(view.getContext());
+                dbHelper.addFavEvent(image, name, desc);
+            }
+        });
 
         return view;
     }

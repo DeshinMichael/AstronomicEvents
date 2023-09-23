@@ -1,8 +1,11 @@
 package com.example.nasaimagesbook.data;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -41,5 +44,28 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    
+    public void addFavEvent(String image, String name, String desc){
+        db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(IMAGE_URL, image);
+        cv.put(NAME_OF_EVENT, name);
+        cv.put(DESC_OF_EVENT, desc);
+        long result = db.insert(TABLE_NAME, null, cv);
+        if (result == -1){
+            Toast.makeText(context, "Ошибка при добавлении", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Добавлено успешно!", Toast.LENGTH_SHORT).show();
+        }
+        db.close();
+    }
+
+    public Cursor readAllDataOfFavEvents(){
+        String query = "SELECT * FROM " + TABLE_NAME;
+        db = this.getReadableDatabase();
+        Cursor cursor = null;
+        if (db != null){
+            cursor = db.rawQuery(query, null);
+        }
+        return cursor;
+    }
 }
