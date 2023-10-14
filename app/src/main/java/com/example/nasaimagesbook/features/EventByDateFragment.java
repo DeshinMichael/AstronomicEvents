@@ -11,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 import com.example.nasaimagesbook.data.event.EventResponse;
+import com.example.nasaimagesbook.data.DbHelper;
+
 import com.example.nasaimagesbook.data.Repository;
 import com.example.nasaimagesbook.databinding.FragmentEventByDateBinding;
 import com.squareup.picasso.Picasso;
@@ -28,6 +31,11 @@ public class EventByDateFragment extends Fragment {
     private FragmentEventByDateBinding binding;
     private Calendar c;
     private DatePickerDialog dpd;
+    private DbHelper dbHelper;
+
+    private String image;
+    private String name;
+    private String desc;
 
     @Nullable
     @Override
@@ -35,11 +43,7 @@ public class EventByDateFragment extends Fragment {
         binding = FragmentEventByDateBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
 
-        if (savedInstanceState != null) {
-            String title = "";
-            title = savedInstanceState.getString(EventByDateFragment.OUTSTATE_KEY);
-            binding.titleEventByDate.setText(title);
-        }
+        binding.btnAddToFav.setVisibility(View.GONE);
 
         c = Calendar.getInstance();
         int day = c.get(Calendar.DAY_OF_MONTH);
@@ -70,10 +74,16 @@ public class EventByDateFragment extends Fragment {
                                     binding.titleEventByDate.setText(eventResponse.getTitle());
                                     binding.descEventByDate.setText(eventResponse.getExplanation());
 
-//                                    binding.imageEventByDate.setVisibility(View.VISIBLE);
-//                                    binding.titleEventByDate.setVisibility(View.VISIBLE);
-//                                    binding.descEventByDate.setVisibility(View.VISIBLE);
+                                    binding.imageEventByDate.setVisibility(View.VISIBLE);
+                                    binding.titleEventByDate.setVisibility(View.VISIBLE);
+                                    binding.descEventByDate.setVisibility(View.VISIBLE);
+                                    binding.btnAddToFav.setVisibility(View.VISIBLE);
+                                  
                                     binding.dateEventProgressBar.setVisibility(View.INVISIBLE);
+
+                                    image = eventResponse.getUrl();
+                                    name = eventResponse.getTitle();
+                                    desc = eventResponse.getExplanation();
                                 }
                             }
 
@@ -87,6 +97,13 @@ public class EventByDateFragment extends Fragment {
             }
         });
 
+        binding.btnAddToFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHelper = new DbHelper(view.getContext());
+                dbHelper.addFavEvent(image, name, desc);
+            }
+        });
 
         return view;
     }

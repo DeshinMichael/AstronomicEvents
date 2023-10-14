@@ -9,7 +9,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
 import com.example.nasaimagesbook.data.event.EventResponse;
+import com.example.nasaimagesbook.data.DbHelper;
+
 import com.example.nasaimagesbook.data.Repository;
 import com.example.nasaimagesbook.databinding.ActivityMainBinding;
 import com.example.nasaimagesbook.databinding.FragmentDailyEventBinding;
@@ -22,6 +25,11 @@ import retrofit2.Response;
 public class DailyEventFragment extends Fragment {
 
     private FragmentDailyEventBinding binding;
+    private DbHelper dbHelper;
+
+    private String image;
+    private String name;
+    private String desc;
 
     private String image_url = "";
     private String title = "";
@@ -31,7 +39,8 @@ public class DailyEventFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentDailyEventBinding.inflate(inflater, container, false);
-        View v = binding.getRoot();
+        View view = binding.getRoot();
+
 
         if (!title.equals("")) {
             binding.imageEvent.setVisibility(View.VISIBLE);
@@ -44,6 +53,10 @@ public class DailyEventFragment extends Fragment {
         } else {
             binding.dailyProgressBar.setVisibility(View.VISIBLE);
 
+        binding.btnAddToFav.setVisibility(View.GONE);
+        binding.dailyProgressBar.setVisibility(View.VISIBLE);
+
+
             Call<EventResponse> eventResponseCall = Repository.getEvent();
             eventResponseCall.enqueue(new Callback<EventResponse>() {
                 @Override
@@ -55,6 +68,7 @@ public class DailyEventFragment extends Fragment {
                         binding.titleEvent.setText(eventResponse.getTitle());
                         binding.descEvent.setText(eventResponse.getExplanation());
 
+
                         binding.imageEvent.setVisibility(View.VISIBLE);
                         binding.titleEvent.setVisibility(View.VISIBLE);
                         binding.descEvent.setVisibility(View.VISIBLE);
@@ -64,6 +78,7 @@ public class DailyEventFragment extends Fragment {
                         title = eventResponse.getTitle();
                         desc = eventResponse.getExplanation();
                     }
+
                 }
 
                 @Override
@@ -71,12 +86,14 @@ public class DailyEventFragment extends Fragment {
             });
         }
 
-        return v;
-    }
+        binding.btnAddToFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dbHelper = new DbHelper(view.getContext());
+                dbHelper.addFavEvent(image, name, desc);
+            }
+        });
 
-//    @Override
-//    public void onDestroyView() {
-//        super.onDestroyView();
-//        binding = null;
-//    }
+        return view;
+    }
 }
