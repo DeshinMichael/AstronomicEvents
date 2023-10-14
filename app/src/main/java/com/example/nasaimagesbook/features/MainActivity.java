@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
     DailyEventFragment dailyEventFragment = new DailyEventFragment();
     EventByDateFragment eventByDateFragment = new EventByDateFragment();
     FavEventsFragment favEventFragment = new FavEventsFragment();
+
     private ActivityMainBinding binding;
 
     @Override

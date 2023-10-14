@@ -11,8 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+
+import com.example.nasaimagesbook.data.event.EventResponse;
 import com.example.nasaimagesbook.data.DbHelper;
-import com.example.nasaimagesbook.data.EventResponse;
+
 import com.example.nasaimagesbook.data.Repository;
 import com.example.nasaimagesbook.databinding.FragmentEventByDateBinding;
 import com.squareup.picasso.Picasso;
@@ -25,6 +27,7 @@ import retrofit2.Response;
 
 public class EventByDateFragment extends Fragment {
 
+    private static String OUTSTATE_KEY = "daily_event";
     private FragmentEventByDateBinding binding;
     private Calendar c;
     private DatePickerDialog dpd;
@@ -75,6 +78,7 @@ public class EventByDateFragment extends Fragment {
                                     binding.titleEventByDate.setVisibility(View.VISIBLE);
                                     binding.descEventByDate.setVisibility(View.VISIBLE);
                                     binding.btnAddToFav.setVisibility(View.VISIBLE);
+                                  
                                     binding.dateEventProgressBar.setVisibility(View.INVISIBLE);
 
                                     image = eventResponse.getUrl();
@@ -102,5 +106,17 @@ public class EventByDateFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(OUTSTATE_KEY, binding.titleEventByDate.getText().toString());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
     }
 }

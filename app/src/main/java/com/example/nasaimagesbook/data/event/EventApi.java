@@ -1,4 +1,4 @@
-package com.example.nasaimagesbook.data;
+package com.example.nasaimagesbook.data.event;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
