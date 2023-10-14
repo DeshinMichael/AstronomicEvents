@@ -25,16 +25,21 @@ public class FavEventsFragment extends Fragment {
     private FavEventsAdapter adapter;
     private FragmentFavEventsBinding binding;
 
-    private ArrayList<String> fav_event_id;
-    private ArrayList<String> fav_event_image;
-    private ArrayList<String> fav_event_name;
-    private ArrayList<String> fav_event_desc;
+    private ArrayList<String> fav_event_id = new ArrayList<>();
+    private ArrayList<String> fav_event_image = new ArrayList<>();
+    private ArrayList<String> fav_event_name = new ArrayList<>();
+    private ArrayList<String> fav_event_desc = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentFavEventsBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
+
+        fav_event_id.clear();
+        fav_event_image.clear();
+        fav_event_name.clear();
+        fav_event_desc.clear();
 
         storeDataOfFavEventsInArrays();
 
@@ -57,11 +62,11 @@ public class FavEventsFragment extends Fragment {
                 ft.commit();
             }
         });
-
         return view;
     }
 
     private void storeDataOfFavEventsInArrays(){
+        dbHelper = new DbHelper(getContext());
         Cursor cursor = dbHelper.readAllDataOfFavEvents();
         if(cursor.getCount() == 0){
             binding.tvNoneFavEvents.setVisibility(View.VISIBLE);
