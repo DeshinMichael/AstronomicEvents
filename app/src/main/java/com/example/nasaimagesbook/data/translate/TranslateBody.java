@@ -16,4 +16,16 @@ public class TranslateBody {
     public String getTargetLanguageCode() {
         return targetLanguageCode;
     }
+
+    public void setFolderId(String folderId) {
+        this.folderId = folderId;
+    }
+
+    public void setTexts(String[] texts) {
+        this.texts = texts;
+    }
+
+    public void setTargetLanguageCode(String targetLanguageCode) {
+        this.targetLanguageCode = targetLanguageCode;
+    }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AstronomicalBook</string>
+    <string name="app_name">Astronomic Events</string>
     <string name="today">Сегодня</string>
     <string name="date">Дата</string>
     <string name="favorite">Любимые</string>

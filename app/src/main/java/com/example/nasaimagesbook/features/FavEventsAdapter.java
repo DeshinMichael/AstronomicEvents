@@ -23,17 +23,20 @@ public class FavEventsAdapter extends RecyclerView.Adapter<FavEventsAdapter.View
     private ArrayList<String> list_image;
     private ArrayList<String> list_name;
     private ArrayList<String> list_desc;
+    private ArrayList<String> list_date;
     private OnItemClickListener mListener;
 
     public FavEventsAdapter(Context context, ArrayList<String> id,
                             ArrayList<String> image,
                             ArrayList<String> name,
-                            ArrayList<String> desc) {
+                            ArrayList<String> desc,
+                            ArrayList<String> date) {
         this.context = context;
         this.list_id = id;
         this.list_image = image;
         this.list_name = name;
         this.list_desc = desc;
+        this.list_date = date;
     }
 
     public void setOnItemClickListener(OnItemClickListener listener){
@@ -96,5 +99,9 @@ public class FavEventsAdapter extends RecyclerView.Adapter<FavEventsAdapter.View
 
     public ArrayList<String> getList_desc() {
         return list_desc;
+    }
+
+    public ArrayList<String> getList_date() {
+        return list_date;
     }
 }

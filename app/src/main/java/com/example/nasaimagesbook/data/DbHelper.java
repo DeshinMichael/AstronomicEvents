@@ -17,6 +17,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public static final String IMAGE_URL = "image_url";
     public static final String NAME_OF_EVENT = "name_of_event";
     public static final String DESC_OF_EVENT = "desc_of_event";
+    public static final String DATE_OF_EVENT = "date_of_event";
 
     //База данных
     public static final String DB_NAME = "db_events.db";
@@ -34,7 +35,7 @@ public class DbHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String query = "CREATE TABLE " +
                 TABLE_NAME + " (" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + IMAGE_URL + " TEXT," +
-                NAME_OF_EVENT + " TEXT," + DESC_OF_EVENT + " TEXT )";
+                NAME_OF_EVENT + " TEXT," + DESC_OF_EVENT + " TEXT," + DATE_OF_EVENT + " TEXT)";
         db.execSQL(query);
     }
 
@@ -44,12 +45,13 @@ public class DbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addFavEvent(String image, String name, String desc){
+    public void addFavEvent(String image, String name, String desc, String date){
         db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(IMAGE_URL, image);
         cv.put(NAME_OF_EVENT, name);
         cv.put(DESC_OF_EVENT, desc);
+        cv.put(DATE_OF_EVENT, date);
         long result = db.insert(TABLE_NAME, null, cv);
         if (result == -1){
             Toast.makeText(context, "Ошибка при добавлении", Toast.LENGTH_SHORT).show();
@@ -67,5 +69,15 @@ public class DbHelper extends SQLiteOpenHelper {
             cursor = db.rawQuery(query, null);
         }
         return cursor;
+    }
+
+    public void deleteOneFavEvent(String id_event) {
+        db = this.getWritableDatabase();
+        long result = db.delete(TABLE_NAME, _ID + "=?", new String[]{id_event});
+        if (result == -1) {
+            Toast.makeText(context, "Ошибка при удалении", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Успешно удалено", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -29,6 +29,7 @@ public class FavEventsFragment extends Fragment {
     private ArrayList<String> fav_event_image = new ArrayList<>();
     private ArrayList<String> fav_event_name = new ArrayList<>();
     private ArrayList<String> fav_event_desc = new ArrayList<>();
+    private ArrayList<String> fav_event_date = new ArrayList<>();
 
     @Nullable
     @Override
@@ -40,11 +41,12 @@ public class FavEventsFragment extends Fragment {
         fav_event_image.clear();
         fav_event_name.clear();
         fav_event_desc.clear();
+        fav_event_date.clear();
 
         storeDataOfFavEventsInArrays();
 
         adapter = new FavEventsAdapter(view.getContext(), fav_event_id, fav_event_image,
-                fav_event_name, fav_event_desc);
+                fav_event_name, fav_event_desc, fav_event_date);
         binding.recyclerEvents.setAdapter(adapter);
         binding.recyclerEvents.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -55,7 +57,8 @@ public class FavEventsFragment extends Fragment {
                         adapter.getList_id().get(position),
                         adapter.getList_image().get(position),
                         adapter.getList_name().get(position),
-                        adapter.getList_desc().get(position));
+                        adapter.getList_desc().get(position),
+                        adapter.getList_date().get(position));
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.replace(R.id.container, eventFragment);
                 ft.addToBackStack(null);
@@ -77,6 +80,7 @@ public class FavEventsFragment extends Fragment {
                 fav_event_image.add(cursor.getString(1));
                 fav_event_name.add(cursor.getString(2));
                 fav_event_desc.add(cursor.getString(3));
+                fav_event_date.add(cursor.getString(4));
             }
         }
     }

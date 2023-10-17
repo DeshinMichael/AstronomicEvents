@@ -12,15 +12,32 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/date_event"
+                android:text="Дата события"
+                android:textSize="26sp"
+                android:textColor="@color/purple_700"
+                android:textStyle="bold|italic"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:visibility="visible"/>
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:id="@+id/image_event"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/date_event"
+                app:layout_constraintEnd_toEndOf="@+id/date_event"
+                app:layout_constraintTop_toBottomOf="@+id/date_event"
                 android:layout_marginTop="30dp"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -37,7 +54,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:visibility="gone"/>
+                android:visibility="visible"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -54,8 +71,16 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:visibility="gone"/>
-
+                android:visibility="visible"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_delete"
+                android:text="Удалить из любимых"
+                app:layout_constraintStart_toStartOf="@+id/desc_event"
+                app:layout_constraintEnd_toEndOf="@+id/desc_event"
+                app:layout_constraintTop_toBottomOf="@+id/desc_event"
+                android:layout_marginTop="20dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
